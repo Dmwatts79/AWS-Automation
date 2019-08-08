@@ -1,0 +1,26 @@
+# This script in combination with a good cloudwatch rule will autostart all EC2 instances
+# This will iterate over every AWS region. 
+
+import boto3
+
+def lambda_handler(event, context):
+    
+    #Get the list of regions
+    ec2_client = boto3.client('ec2')
+    region = [region('RegionName')]
+        for region in ec2_client.describe_regions()['Regions']]
+        
+    #Iteration per region
+    for region in regions:
+        ec2 = boto3.resource('ec2', region_name=region)
+        
+        print("Region:", region)
+        
+        #List running instances
+        instances = ec2.instances.filter(
+            Filters=[{'Name': ;'instance-state-name','Values': ['Running']}])
+            
+        # Start the instances
+        for stopped_instance in instances:
+            instance.start():
+                print('Stopped instance: ', instance.id)
