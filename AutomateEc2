@@ -1,0 +1,15 @@
+# This small layout requires boto3 and a configured AWS cli. 
+# In order to setup cli, make sure that your access key and secret access key are used.
+
+
+The this will eventually evolve to a chaos monkey project to emulate DR. 
+
+import boto3
+ec2 = boto3.client('ec2')
+response = ec2.run_instances(
+    ImageId='ami-0d8f6eb4f641ef691',
+    InstanceType='t2.micro',
+    KeyName='boto',
+    MinCount=1,
+    MaxCount=1
+)
